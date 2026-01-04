@@ -1,0 +1,68 @@
+<div id="adblock-message" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; color:white; text-align:center; padding-top:100px; font-family:Arial,sans-serif;">
+    <h1>⚠️ عذراً، تم اكتشاف حاجب إعلانات</h1>
+    <p style="font-size:20px;">يرجى تعطيل مانع الإعلانات ثم تحديث الصفحة لمشاهدة الفيديو واستلام الرابط.</p>
+</div>
+
+<div id="main-content" onclick="startEverything()" style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; padding: 20px; direction: rtl; cursor: pointer; background: #1a1a1a;">
+    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); border: 1px solid #eee; display: inline-block; min-width: 320px; margin-top: 50px;" onclick="event.stopPropagation();">
+        <h2 id="status-text" style="color: #2c3e50; margin-bottom: 10px;">إضغط في أي مكان لبدء تحضير الفيديو...</h2>
+        
+        <div id="countdown" style="font-size: 75px; color: #e74c3c; font-weight: bold; margin: 15px 0;">30</div>
+        
+        <div style="margin-top: 20px;">
+            <a id="smartLink" href="https://www.effectivegatecpm.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a" target="_blank" style="display: none; padding: 15px 40px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 20px; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);">اضغط للمشاهدة الآن</a>
+        </div>
+        
+        <p id="footer-text" style="color: #666; font-size: 14px; margin-top: 15px;">سيتم نقلك للفيديو تلقائياً عند انتهاء الوقت</p>
+    </div>
+</div>
+
+<script>
+    // الروابط الخاصة بك
+    var myDirectLink = "https://www.effectivegatecpm.com/hxh079u06?key=ffae3ff4dbbe1922cd0abf1345a3170a";
+    var youtubeVideoUrl = "https://youtu.be/UZE2sxcYA30"; 
+
+    var timeLeft = 30; 
+    var started = false;
+
+    // الدالة التي تعمل عند الضغط في أي مكان لبدء العداد والربح
+    function startEverything() {
+        if (started) return;
+        started = true;
+        
+        document.getElementById("status-text").innerHTML = "جاري تحضير الفيديو...";
+        document.getElementById("status-text").style.color = "#27ae60";
+        
+        // المرة الأولى: فتح الدايركت لينك في نافذة جديدة لزيادة الربح
+        window.open(myDirectLink, "_blank");
+
+        var downloadTimer = setInterval(function(){
+            timeLeft -= 1;
+            document.getElementById("countdown").innerHTML = timeLeft;
+            
+            if(timeLeft <= 0){
+                clearInterval(downloadTimer);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("smartLink").style.display = "inline-block";
+                document.getElementById("status-text").innerHTML = "الرابط جاهز الآن!";
+                
+                // التحويل التلقائي لليوتيوب بعد انتهاء العداد
+                setTimeout(function(){
+                    window.location.href = youtubeVideoUrl;
+                }, 1000); 
+            }
+        }, 1000);
+    }
+
+    // فحص مانع الإعلانات لضمان ظهور الإعلانات واحتساب الربح
+    async function checkAdBlock() {
+        // محاولة جلب رابط الدايركت لينك كاختبار لوجود AdBlock
+        try {
+            var response = await fetch(myDirectLink, { method: 'HEAD', mode: 'no-cors' });
+        } catch (e) {
+            document.getElementById('adblock-message').style.display = 'block';
+            document.getElementById('main-content').style.display = 'none';
+        }
+    }
+    checkAdBlock();
+</script>
